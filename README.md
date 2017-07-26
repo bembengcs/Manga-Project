@@ -15,8 +15,8 @@ Build :
 Manga Reader App
 1. Manga List
 2. Manga Detail
-  a. Manga Info
-  b. Manga Chapters
+  - Manga Info
+  - Manga Chapters
 3. Manga Reader
-  a. Page Indicator
-  b. Zoom in - zoom out
+  - Page Indicator
+  - Zoom in - zoom out
