@@ -2,7 +2,7 @@
 App Reference : Manga Rock
 https://www.google.co.id/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwjpkZy0m-zUAhUEo48KHeOIBfAQFgglMAA&url=https%3A%2F%2Fmangarock.com%2F&usg=AFQjCNEvCQkn-3Z5zJVLQRaKNeSD67SoQA
 
-Api Source :
+Api Source : 
 http://www.mangaeden.com/api/
 
 Use Library :
