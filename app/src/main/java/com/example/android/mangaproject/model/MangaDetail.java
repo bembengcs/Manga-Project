@@ -39,7 +39,7 @@ public class MangaDetail {
     private List<String> categories = null;
     @SerializedName("chapters")
     @Expose
-    private List<List<Integer>> chapters = null;
+    private List<List<Object>> chapters = null;
     @SerializedName("chapters_len")
     @Expose
     private int chaptersLen;
@@ -169,11 +169,11 @@ public class MangaDetail {
         this.categories = categories;
     }
 
-    public List<List<Integer>> getChapters() {
+    public List<List<Object>> getChapters() {
         return chapters;
     }
 
-    public void setChapters(List<List<Integer>> chapters) {
+    public void setChapters(List<List<Object>> chapters) {
         this.chapters = chapters;
     }
 

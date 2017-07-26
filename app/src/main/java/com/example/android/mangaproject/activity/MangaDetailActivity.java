@@ -47,6 +47,7 @@ public class MangaDetailActivity extends AppCompatActivity {
         } else {
             i = (String) savedInstanceState.getSerializable(i);
         }
+
     }
 
     private void setupViewPager(ViewPager pager) {

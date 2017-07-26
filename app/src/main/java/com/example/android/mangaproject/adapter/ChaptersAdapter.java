@@ -5,10 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.android.mangaproject.R;
-import com.example.android.mangaproject.model.MangaDetail;
 
 import java.util.List;
 
@@ -19,37 +20,56 @@ import butterknife.ButterKnife;
  * Created by bembengcs on 7/24/2017.
  */
 
+
+
 public class ChaptersAdapter extends RecyclerView.Adapter<ChaptersAdapter.ChapterViewHolder> {
 
-    @BindView(R.id.tv_list_chapters)
-    TextView tvListChapters;
-
-    private MangaDetail mangaDetail;
-    private List<List<Integer>> chapters;
-    private int position;
+    private List<List<Object>> chapters;
     private Context context;
+    private OnItemClickListener listener;
+
 
     public class ChapterViewHolder extends RecyclerView.ViewHolder {
 
-        private List<List<Integer>> chapters;
-        private MangaDetail mangaDetail;
+        @BindView(R.id.tv_list_chapters)
+        TextView tvListChapters;
+        @BindView(R.id.chapters_layout)
+        LinearLayout chaptersLayout;
+
+        private List<Object> chapters;
+        private int position;
+        private OnItemClickListener listener;
+
+        public void onViewClicked() {
+            listener.onItemClick(position, chapters.get(3));
+        }
 
         public ChapterViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(List<List<Integer>> chapters, MangaDetail mangaDetail) {
+        public void bind(final List<Object> chapters, final int position, final OnItemClickListener listener) {
             this.chapters = chapters;
-            this.mangaDetail = mangaDetail;
-//            tvListChapters.setText(mangaDetail.getChapters());
+            this.position = position;
+            this.listener = listener;
+
+            chaptersLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onItemClick(position, chapters.get(position));
+                }
+            });
+            tvListChapters.setText("Chapters " + chapters.get(0));
+//            Log.i(TAG, "tvListChapters : " + tvListChapters);
         }
 
     }
 
-    public ChaptersAdapter(List<List<Integer>> chapters, Context context) {
+    public ChaptersAdapter(List<List<Object>> chapters, Context context, OnItemClickListener listener) {
         this.chapters = chapters;
         this.context = context;
+        this.listener = listener;
     }
 
     @Override
@@ -58,15 +78,18 @@ public class ChaptersAdapter extends RecyclerView.Adapter<ChaptersAdapter.Chapte
         return new ChapterViewHolder(view);
     }
 
-
     @Override
     public void onBindViewHolder(ChapterViewHolder holder, int position) {
-//        holder.bind(chapters);
+        holder.bind(chapters.get(position), position, listener);
     }
 
     @Override
     public int getItemCount() {
         return chapters.size();
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position, Object o);
     }
 
 }

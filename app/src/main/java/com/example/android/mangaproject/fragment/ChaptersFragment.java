@@ -1,19 +1,29 @@
 package com.example.android.mangaproject.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.android.mangaproject.activity.MangaDetailActivity;
 import com.example.android.mangaproject.adapter.ChaptersAdapter;
 import com.example.android.mangaproject.model.MangaDetail;
 import com.example.android.mangaproject.R;
 import com.example.android.mangaproject.rest.ApiClient;
 import com.example.android.mangaproject.rest.ApiInterface;
+import com.example.android.mangaproject.util.GridSpacingItemDecoration;
 
 import java.util.List;
 
@@ -26,15 +36,16 @@ import retrofit2.Response;
 
 import static android.content.ContentValues.TAG;
 
-public class ChaptersFragment extends Fragment {
+public class ChaptersFragment extends Fragment implements ChaptersAdapter.OnItemClickListener {
 
     @BindView(R.id.rv_item_list_chapter)
     RecyclerView rvItemListChapter;
 
     Unbinder unbinder;
     private ChaptersAdapter adapter;
-    private List<List<Integer>> chapters;
+    private List<List<Object>> chapters;
     ApiInterface apiService;
+    public Context context;
 
     public ChaptersFragment() {
         // Required empty public constructor
@@ -50,9 +61,7 @@ public class ChaptersFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         apiService = ApiClient.getClient().create(ApiInterface.class);
-        loadData();
     }
 
     private void loadData() {
@@ -62,9 +71,9 @@ public class ChaptersFragment extends Fragment {
             public void onResponse(Call<MangaDetail> call, Response<MangaDetail> response) {
                 if (response.isSuccessful()) {
                     chapters = response.body().getChapters();
-
-                    setUpValue(chapters, getContext());
-
+                    setUpValue(chapters);
+                    Log.i(TAG, "chapters : " + chapters);
+//                    Toast.makeText(getContext(), "load chapters", Toast.LENGTH_SHORT).show();
                 } else {
                     Log.e(TAG, "Error to get manga chapters by id");
                 }
@@ -74,13 +83,23 @@ public class ChaptersFragment extends Fragment {
             @Override
             public void onFailure(Call<MangaDetail> call, Throwable t) {
                 Log.e(TAG, t.toString());
+//                t.printStackTrace();
             }
         });
     }
 
-    private void setUpValue(List<List<Integer>> chapters, Context context) {
-        adapter = new ChaptersAdapter(chapters, context);
+    private void setUpValue(List<List<Object>> chapters) {
+        rvItemListChapter.setLayoutManager(new LinearLayoutManager(context));
+        adapter = new ChaptersAdapter(chapters, context, this);
         rvItemListChapter.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClick(int position, Object o) {
+        Intent intent = new Intent(getContext(), MangaDetailActivity.class);
+        intent.putExtra("o", 3);
+        startActivity(intent);
+//        Toast.makeText(getContext(), "Ke halaman baca komik", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -95,4 +114,12 @@ public class ChaptersFragment extends Fragment {
         super.onDestroyView();
         unbinder.unbind();
     }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        loadData();
+    }
+
+
 }

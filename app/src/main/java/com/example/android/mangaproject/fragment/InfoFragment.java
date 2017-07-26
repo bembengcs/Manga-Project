@@ -1,6 +1,7 @@
 package com.example.android.mangaproject.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,12 +35,8 @@ public class InfoFragment extends Fragment {
     TextView tvMangaTitle;
     @BindView(R.id.tv_manga_author)
     TextView tvMangaAuthor;
-    @BindView(R.id.tv_manga_chapters)
+    @BindView(R.id.tv_manga_chapters_lenght)
     TextView tvMangaChapters;
-    @BindView(R.id.tv_manga_status)
-    TextView tvMangaStatus;
-    @BindView(R.id.tv_manga_ranking)
-    TextView tvMangaRanking;
     @BindView(R.id.tv_manga_last_chaptes_date)
     TextView tvMangaLastChaptesDate;
     @BindView(R.id.tv_manga_genre)
@@ -67,9 +64,14 @@ public class InfoFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         apiService = ApiClient.getClient().create(ApiInterface.class);
-        loadData();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_info, container, false);
+        unbinder = ButterKnife.bind(this, view);
+        return view;
     }
 
     private void loadData() {
@@ -79,8 +81,8 @@ public class InfoFragment extends Fragment {
             public void onResponse(Call<MangaDetail> call, Response<MangaDetail> response) {
                 if (response.isSuccessful()) {
                     mangaDetail = response.body();
+//                    Log.i(TAG, "mangadetail : " + mangaDetail);
                     setUpValue(mangaDetail);
-                    Toast.makeText(getContext(), "onResponse", Toast.LENGTH_SHORT).show();
                 } else {
                     Log.e(TAG, "Error to get manga detail");
                 }
@@ -89,14 +91,14 @@ public class InfoFragment extends Fragment {
             @Override
             public void onFailure(Call<MangaDetail> call, Throwable t) {
                 Log.e(TAG, t.toString());
+//                t.printStackTrace();
             }
         });
     }
 
     private void setUpValue(MangaDetail mangaDetail) {
         this.mangaDetail = mangaDetail;
-
-        Toast.makeText(getContext(), "setUpValue", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "setUpValue", Toast.LENGTH_SHORT).show();
 
         Glide.with(this)
                 .load(mangaDetail.getImageURL())
@@ -109,22 +111,21 @@ public class InfoFragment extends Fragment {
 
         tvMangaTitle.setText(mangaDetail.getTitle());
         tvMangaAuthor.setText(mangaDetail.getAuthor());
-        tvMangaLastChaptesDate.setText(mangaDetail.getChaptersLen());
-        tvMangaStatus.setText(mangaDetail.getStatus());
+        tvMangaChapters.setText(mangaDetail.getChaptersLen()+" chapters");
+        tvMangaLastChaptesDate.setText(mangaDetail.getLastChapterDate()+"");
+        tvMangaGenre.setText(mangaDetail.getCategories()+"");
         tvDescription.setText(mangaDetail.getDescription());
-    }
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_info, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        return view;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        loadData();
     }
 }

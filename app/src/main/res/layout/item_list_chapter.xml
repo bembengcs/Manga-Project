@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/chapters_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -8,10 +9,10 @@
         android:id="@+id/tv_list_chapters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:gravity="center|center_vertical"
         android:padding="8dp"
-        android:text="Last chapters"
-        android:textSize="16sp"
-        android:layout_margin="8dp"/>
+        android:text="Last Chapters"
+        android:textSize="16sp" />
 
 </LinearLayout>
