@@ -40,10 +40,6 @@ public class ChaptersAdapter extends RecyclerView.Adapter<ChaptersAdapter.Chapte
         private int position;
         private OnItemClickListener listener;
 
-        public void onViewClicked() {
-            listener.onItemClick(position, chapters.get(3));
-        }
-
         public ChapterViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -57,11 +53,11 @@ public class ChaptersAdapter extends RecyclerView.Adapter<ChaptersAdapter.Chapte
             chaptersLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listener.onItemClick(position, chapters.get(position));
+                    listener.onItemClick(position, chapters.get(3));
                 }
             });
+
             tvListChapters.setText("Chapters " + chapters.get(0));
-//            Log.i(TAG, "tvListChapters : " + tvListChapters);
         }
 
     }

@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,13 +20,23 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.MangaDetailActivity"
-            android:theme="@style/MyMaterialTheme"
+        <activity
+            android:name=".activity.MangaDetailActivity"
             android:label="Detail Manga"
-            android:parentActivityName=".activity.MainActivity">
+            android:parentActivityName=".activity.MainActivity"
+            android:theme="@style/MyMaterialTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.mangaproject.activity.MainActivity" />
+        </activity>
+
+        <activity android:name=".activity.MangaReadActivity"
+            android:label="Manga Reader"
+            android:parentActivityName=".activity.MangaDetailActivity"
+            android:theme="@style/MyMaterialTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.mangaproject.activity.MangaDetailActivity" />
         </activity>
     </application>
 

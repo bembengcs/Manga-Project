@@ -5,11 +5,10 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import com.example.android.mangaproject.R;
 import com.example.android.mangaproject.adapter.TabsPagerAdapter;
-import com.example.android.mangaproject.fragment.ChaptersFragment;
-import com.example.android.mangaproject.fragment.InfoFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,7 +22,8 @@ public class MangaDetailActivity extends AppCompatActivity {
     @BindView(R.id.pager)
     ViewPager pager;
 
-    public String i;
+    String mMangaId;
+    private String TAG = MangaDetailActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,26 +34,21 @@ public class MangaDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        mMangaId = getIntent().getStringExtra("i");
         setupViewPager(pager);
         tabs.setupWithViewPager(pager);
-
-        if (savedInstanceState == null) {
-            Bundle bundle = getIntent().getExtras();
-            if (bundle == null) {
-                i = null;
-            } else {
-                i = bundle.getString("i");
-            }
-        } else {
-            i = (String) savedInstanceState.getSerializable(i);
-        }
-
     }
 
     private void setupViewPager(ViewPager pager) {
-        TabsPagerAdapter mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
-        mAdapter.addFragment(new InfoFragment(), "INFO");
-        mAdapter.addFragment(new ChaptersFragment(), "CHAPTERS");
+        TabsPagerAdapter mAdapter = new TabsPagerAdapter(getSupportFragmentManager(), mMangaId);
         pager.setAdapter(mAdapter);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

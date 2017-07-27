@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.android.mangaproject.model.MangaDetail;
@@ -28,7 +27,7 @@ import retrofit2.Response;
 
 public class InfoFragment extends Fragment {
 
-    private static final String TAG = MangaDetailActivity.class.getSimpleName();
+    private static final String TAG = InfoFragment.class.getSimpleName();
     @BindView(R.id.iv_manga_poster)
     ImageView ivMangaPoster;
     @BindView(R.id.tv_manga_title)
@@ -49,22 +48,30 @@ public class InfoFragment extends Fragment {
 
     ApiInterface apiService;
     private MangaDetail mangaDetail;
+    private String mMangaId;
 
     public InfoFragment() {
 
     }
 
-    public InfoFragment(String i) {
-        Bundle bundle = new Bundle();
-        bundle.putString("i", i);
+    public static InfoFragment newInstance(String mangaId) {
+        Bundle args = new Bundle();
+        args.putString("i", mangaId);
         InfoFragment fragment = new InfoFragment();
-        fragment.setArguments(bundle);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         apiService = ApiClient.getClient().create(ApiInterface.class);
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            mMangaId = bundle.getString("i");
+        }
     }
 
     @Override
@@ -75,13 +82,12 @@ public class InfoFragment extends Fragment {
     }
 
     private void loadData() {
-        Call<MangaDetail> call = apiService.getMangaDetail(getActivity().getIntent().getStringExtra("i"));
+        Call<MangaDetail> call = apiService.getMangaDetail(mMangaId);
         call.enqueue(new Callback<MangaDetail>() {
             @Override
             public void onResponse(Call<MangaDetail> call, Response<MangaDetail> response) {
                 if (response.isSuccessful()) {
                     mangaDetail = response.body();
-//                    Log.i(TAG, "mangadetail : " + mangaDetail);
                     setUpValue(mangaDetail);
                 } else {
                     Log.e(TAG, "Error to get manga detail");
@@ -91,14 +97,12 @@ public class InfoFragment extends Fragment {
             @Override
             public void onFailure(Call<MangaDetail> call, Throwable t) {
                 Log.e(TAG, t.toString());
-//                t.printStackTrace();
             }
         });
     }
 
     private void setUpValue(MangaDetail mangaDetail) {
         this.mangaDetail = mangaDetail;
-//        Toast.makeText(getContext(), "setUpValue", Toast.LENGTH_SHORT).show();
 
         Glide.with(this)
                 .load(mangaDetail.getImageURL())
@@ -111,9 +115,9 @@ public class InfoFragment extends Fragment {
 
         tvMangaTitle.setText(mangaDetail.getTitle());
         tvMangaAuthor.setText(mangaDetail.getAuthor());
-        tvMangaChapters.setText(mangaDetail.getChaptersLen()+" chapters");
-        tvMangaLastChaptesDate.setText(mangaDetail.getLastChapterDate()+"");
-        tvMangaGenre.setText(mangaDetail.getCategories()+"");
+        tvMangaChapters.setText(mangaDetail.getChaptersLen() + " chapters");
+        tvMangaLastChaptesDate.setText(mangaDetail.getLastChapterDate() + "");
+        tvMangaGenre.setText(mangaDetail.getCategories() + "");
         tvDescription.setText(mangaDetail.getDescription());
     }
 

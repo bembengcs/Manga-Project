@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.example.android.mangaproject.model.Manga;
 import com.example.android.mangaproject.R;
@@ -91,6 +92,6 @@ public class MangasAdapter extends RecyclerView.Adapter<MangasAdapter.MangaViewH
     }
 
     public interface OnItemClickListener {
-        void onItemClick(int position, String i);
+        void onItemClick(int position, String mangaId);
     }
 }

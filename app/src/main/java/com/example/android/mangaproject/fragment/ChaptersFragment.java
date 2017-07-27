@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.android.mangaproject.activity.MangaDetailActivity;
+import com.example.android.mangaproject.activity.MangaReadActivity;
 import com.example.android.mangaproject.adapter.ChaptersAdapter;
 import com.example.android.mangaproject.model.MangaDetail;
 import com.example.android.mangaproject.R;
@@ -46,26 +47,33 @@ public class ChaptersFragment extends Fragment implements ChaptersAdapter.OnItem
     private List<List<Object>> chapters;
     ApiInterface apiService;
     public Context context;
+    private String mMangaId;
 
     public ChaptersFragment() {
         // Required empty public constructor
     }
 
-    public ChaptersFragment(String i) {
-        Bundle bundle = new Bundle();
-        bundle.putString("i", i);
-        InfoFragment fragment = new InfoFragment();
-        fragment.setArguments(bundle);
+    public static ChaptersFragment newInstance(String mangaId) {
+        Bundle args = new Bundle();
+        args.putString("i", mangaId);
+        ChaptersFragment fragment = new ChaptersFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         apiService = ApiClient.getClient().create(ApiInterface.class);
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            mMangaId = bundle.getString("i");
+        }
     }
 
     private void loadData() {
-        Call<MangaDetail> call = apiService.getMangaDetail(getActivity().getIntent().getStringExtra("i"));
+        Call<MangaDetail> call = apiService.getMangaDetail(mMangaId);
         call.enqueue(new Callback<MangaDetail>() {
             @Override
             public void onResponse(Call<MangaDetail> call, Response<MangaDetail> response) {
@@ -96,10 +104,9 @@ public class ChaptersFragment extends Fragment implements ChaptersAdapter.OnItem
 
     @Override
     public void onItemClick(int position, Object o) {
-        Intent intent = new Intent(getContext(), MangaDetailActivity.class);
-        intent.putExtra("o", 3);
+        Intent intent = new Intent(getContext(), MangaReadActivity.class);
+        intent.putExtra("o", o.toString());
         startActivity(intent);
-//        Toast.makeText(getContext(), "Ke halaman baca komik", Toast.LENGTH_SHORT).show();
     }
 
     @Override
