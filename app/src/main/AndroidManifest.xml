@@ -23,20 +23,12 @@
         <activity
             android:name=".activity.MangaDetailActivity"
             android:label="Detail Manga"
-            android:parentActivityName=".activity.MainActivity"
             android:theme="@style/MyMaterialTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.mangaproject.activity.MainActivity" />
         </activity>
 
         <activity android:name=".activity.MangaReadActivity"
             android:label="Manga Reader"
-            android:parentActivityName=".activity.MangaDetailActivity"
             android:theme="@style/MyMaterialTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.mangaproject.activity.MangaDetailActivity" />
         </activity>
     </application>
 

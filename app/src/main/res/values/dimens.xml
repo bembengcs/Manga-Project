@@ -14,8 +14,6 @@
     <dimen name="material_typography_display2">45sp</dimen>
     <dimen name="material_typography_display3">56sp</dimen>
     <dimen name="material_typography_display4">112sp</dimen>
-    <!-- Layout -->
-    <dimen name="padding_16">16dp</dimen>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
@@ -24,4 +22,21 @@
     <dimen name="tab_padding_bottom">16dp</dimen>
     <dimen name="tab_label">14sp</dimen>
     <dimen name="custom_tab_layout_height">72dp</dimen>
+
+    <!-- Metrics & Keylines -->
+    <!-- https://www.google.com/design/spec/layout/metrics-keylines.html#metrics-keylines-keylines-spacing -->
+    <dimen name="material_layout_keylines_screen_edge_margin">16dp</dimen>
+    <dimen name="material_layout_keylines_content_left_margin_from_screen_edge">72dp</dimen>
+    <dimen name="material_layout_keylines_horizontal_mobile_margin">16dp</dimen>
+    <dimen name="material_layout_vertical_spacing_status_bar">24dp</dimen>
+    <dimen name="material_layout_vertical_spacing_tool_bar">56dp</dimen>
+    <dimen name="material_layout_vertical_spacing_subtitle">48dp</dimen>
+    <dimen name="material_layout_vertical_spacing_list_item">72dp</dimen>
+    <dimen name="material_layout_vertical_spacing_between_content_areas">8dp</dimen>
+    <dimen name="material_layout_vertical_spacing_right_side_icons_margin">32dp</dimen>
+    <dimen name="material_layout_vertical_spacing_navigation_right_margin">56dp</dimen>
+    <dimen name="material_layout_avatar">40dp</dimen>
+    <dimen name="material_layout_icon">24dp</dimen>
+    <dimen name="material_layout_touch_target">48dp</dimen>
+    <dimen name="material_layout_button_height">36dp</dimen>
 </resources>

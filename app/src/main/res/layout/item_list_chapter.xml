@@ -13,6 +13,6 @@
         android:gravity="center|center_vertical"
         android:padding="8dp"
         android:text="Last Chapters"
-        android:textSize="16sp" />
+        android:textSize="@dimen/material_typography_body1" />
 
 </LinearLayout>

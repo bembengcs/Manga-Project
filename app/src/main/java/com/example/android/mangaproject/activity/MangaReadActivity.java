@@ -7,15 +7,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.android.mangaproject.R;
 import com.example.android.mangaproject.adapter.ViewPagerAdapter;
+import com.example.android.mangaproject.model.Events;
 import com.example.android.mangaproject.model.MangaPage;
 import com.example.android.mangaproject.rest.ApiClient;
 import com.example.android.mangaproject.rest.ApiInterface;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,10 +48,12 @@ public class MangaReadActivity extends AppCompatActivity implements ViewPager.On
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+
     public String o;
     private ApiInterface apiService;
     private MangaPage mangaPage;
     private String TAG = MangaReadActivity.class.getSimpleName();
+    private int counter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +105,8 @@ public class MangaReadActivity extends AppCompatActivity implements ViewPager.On
         }
         Collections.reverse(mangaPageUrlList);
         setupViewPager(mangaPageUrlList);
+
+        pbHorizontal.setMax(mangaPage.getImages().size());
     }
 
     @Override
@@ -127,5 +137,23 @@ public class MangaReadActivity extends AppCompatActivity implements ViewPager.On
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(Events.MangaReadyEvent event) {
+        counter++;
+        pbHorizontal.setProgress(counter);
     }
 }

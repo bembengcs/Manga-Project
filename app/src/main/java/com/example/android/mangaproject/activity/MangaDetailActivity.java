@@ -33,7 +33,6 @@ public class MangaDetailActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         mMangaId = getIntent().getStringExtra("i");
         setupViewPager(pager);
         tabs.setupWithViewPager(pager);

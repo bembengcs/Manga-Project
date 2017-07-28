@@ -8,7 +8,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp" >
+        android:padding="@dimen/material_layout_keylines_screen_edge_margin" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -43,23 +43,24 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
-                            android:text="One Piece"
-                            android:textSize="22sp"
+                            android:text="Manga title"
+                            android:textSize="@dimen/material_typography_title"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/tv_manga_author"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:text="Author" />
+                            android:layout_marginBottom="4dp"
+                            android:text="Author"
+                            android:textSize="@dimen/material_typography_body1"/>
 
                         <TextView
                             android:id="@+id/tv_manga_chapters_lenght"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:text="10 chapters" />
+                            android:layout_marginBottom="4dp"
+                            android:text="Total chapters" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -67,13 +68,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="4dp"
                     android:text="LAST UPDATE"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -95,7 +96,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="4dp"
                     android:text="CATEGORIES"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -116,7 +117,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="4dp"
                     android:text="DESCRIPTION"
                     android:textSize="18sp"
                     android:textStyle="bold" />

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.android.mangaproject.model.MangaDetail;
@@ -67,7 +68,6 @@ public class InfoFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         apiService = ApiClient.getClient().create(ApiInterface.class);
-
         Bundle bundle = getArguments();
         if (bundle != null) {
             mMangaId = bundle.getString("i");
@@ -122,14 +122,15 @@ public class InfoFragment extends Fragment {
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        loadData();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        loadData();
-    }
 }
