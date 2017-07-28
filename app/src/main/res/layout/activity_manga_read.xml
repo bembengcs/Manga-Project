@@ -44,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimaryDark"
         android:gravity="center_horizontal"
         android:text="Page 1 of 3"
         android:textColor="@color/cardview_light_background"/>

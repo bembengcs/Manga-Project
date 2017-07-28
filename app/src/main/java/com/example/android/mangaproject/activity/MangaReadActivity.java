@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -155,5 +156,8 @@ public class MangaReadActivity extends AppCompatActivity implements ViewPager.On
     public void onEvent(Events.MangaReadyEvent event) {
         counter++;
         pbHorizontal.setProgress(counter);
+        if (counter == mangaPage.getImages().size()) {
+            pbHorizontal.setVisibility(View.GONE);
+        }
     }
 }
